@@ -11,15 +11,15 @@ import java.util.List;
 //   dao(data access object) - компонент, который является точкой доступа к данным
 @Repository             // то же самое что и component
 public class RecordDao {
-    private final List<Record> records = new ArrayList<Record>(
+    private final List<Record> records = new ArrayList<>(
             Arrays.asList(
                     new Record("Take a shower", RecordStatus.ACTIVE),
-                    new Record("Buy flowers", RecordStatus.DONE),
+                    new Record("Buy flowers", RecordStatus.ACTIVE),
                     new Record("Go to the gym", RecordStatus.ACTIVE)
             )
     );
 
-    public List<Record> getAllRecords(){
+    public List<Record> findAllRecords(){
         return new ArrayList<>(records);
     }
 
