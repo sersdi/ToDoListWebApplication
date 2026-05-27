@@ -25,6 +25,7 @@ public class CommonController {
         List<Record> records = recordService.findAllRecords();
         int numberOfDoneRecords = (int) records.stream().filter(record -> record.getStatus() == RecordStatus.DONE).count();
         int numberOfActiveRecords = (int) records.stream().filter(record -> record.getStatus() == RecordStatus.ACTIVE).count();
+        model.addAttribute("records", records);
         model.addAttribute("numberOfDoneRecords",numberOfDoneRecords);
         model.addAttribute("numberOfActiveRecords",numberOfActiveRecords);
         return "main-page";
