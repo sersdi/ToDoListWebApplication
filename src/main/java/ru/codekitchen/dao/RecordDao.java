@@ -14,9 +14,13 @@ public class RecordDao {
     private final List<Record> records = new ArrayList<Record>(
             Arrays.asList(
                     new Record("Take a shower", RecordStatus.ACTIVE),
-                    new Record("Take a shower", RecordStatus.DONE),
-                    new Record("Take a shower", RecordStatus.ACTIVE)
+                    new Record("Buy flowers", RecordStatus.DONE),
+                    new Record("Go to the gym", RecordStatus.ACTIVE)
             )
     );
+
+    public List<Record> getAllRecords(){
+        return new ArrayList<>(records);
+    }
 
 }
