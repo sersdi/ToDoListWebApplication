@@ -8,7 +8,7 @@ import ru.codekitchen.entity.RecordStatus;
 
 import java.util.List;
 
-@Service                        // Семантически отделяет бизнес логику(тоже-самое что и component)
+@Service
 public class RecordService {
     private final RecordDao recordDao;
 
@@ -17,21 +17,21 @@ public class RecordService {
         this.recordDao = recordDao;
     }
 
-    public List<Record>findAllRecords(){
+    public List<Record> findAllRecords() {
         return recordDao.findAllRecords();
     }
 
-    public void saveRecord(String title){
-        if(title !=null && !title.isBlank()){
+    public void saveRecord(String title) {
+        if (title != null && !title.isBlank()) {
             recordDao.saveRecord(new Record(title));
         }
     }
 
-    public void updateRecordStatus(String title, RecordStatus newStatus){
-        recordDao.updateRecordStatus(title,newStatus);
+    public void updateRecordStatus(int id, RecordStatus newStatus) {
+        recordDao.updateRecordStatus(id, newStatus);
     }
 
-    public void  deleteRecord(String title){
-        recordDao.deleteRecord(title);
+    public void deleteRecord(int id) {
+        recordDao.deleteRecord(id);
     }
 }
