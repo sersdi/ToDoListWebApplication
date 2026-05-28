@@ -4,6 +4,11 @@ public class Record {
     private final String title;
     private RecordStatus status;
 
+    public Record(String title){
+        this.title = title;
+        this.status = RecordStatus.ACTIVE;
+    }
+
     public Record(String title, RecordStatus status) {
         this.title = title;
         this.status = status;
