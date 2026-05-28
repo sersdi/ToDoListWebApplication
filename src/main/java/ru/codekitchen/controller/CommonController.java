@@ -30,4 +30,8 @@ public class CommonController {
         model.addAttribute("numberOfActiveRecords",numberOfActiveRecords);
         return "main-page";
     }
+//    @RequestMapping(value="/add-record", method =)
+//    public String addRecord(){
+//        return "huy";
+//    }
 }
