@@ -4,7 +4,7 @@
 <html>
 <head>
     <title>ToDo List</title>
-    <link href="/resources/css/main-page.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/resources/css/main-page.css" rel="stylesheet">
 </head>
 <body>
 <div class="page-wrapper">
@@ -42,7 +42,7 @@
                             <div class="record__title"><span class="${record.status == 'DONE' ? 'record__title_strikethrough' : ''}">${record.title}</span></div>
                             <div class="record__controls">
                                 <c:if test="${record.status == 'ACTIVE'}">
-                                    <form action="/make-record-done" method="post" class="record__controls-form">
+                                    <form action="${pageContext.request.contextPath}/make-record-done" method="post" class="record__controls-form">
                                         <input type="hidden" name="id" value="${record.id}">
                                         <button type="submit" class="button_type_approve">
                                             <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -58,7 +58,7 @@
                                         </button>
                                     </form>
                                 </c:if>
-                                <form action="/delete-record" method="post" class="record__controls-form">
+                                <form action="${pageContext.request.contextPath}/delete-record" method="post" class="record__controls-form">
                                     <input type="hidden" name="id" value="${record.id}">
                                     <button type="submit" class="button_type_close">
                                         <svg width="24" height="24" viewBox="0 0 24 24">
@@ -78,7 +78,7 @@
             </c:choose>
         </div>
         <div class="management-container">
-            <form action="/add-record" method="post" class="management-form">
+            <form action="${pageContext.request.contextPath}/add-record" method="post" class="management-form">
                 <input type="text" name="title" placeholder="What needs to be done..." class="management-form__input">
                 <button type="submit" class="management-form__button">Add Record</button>
             </form>
