@@ -6,11 +6,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import ru.codekitchen.entity.Record;
 import ru.codekitchen.entity.RecordStatus;
+import ru.codekitchen.entity.dto.RecordsContainerDto;
 import ru.codekitchen.service.RecordService;
-
-import java.util.List;
 
 @Controller
 public class CommonController {
@@ -27,13 +25,11 @@ public class CommonController {
     }
 
     @RequestMapping("/home")
-    public String getMainPage(Model model) {
-        List<Record> records = recordService.findAllRecords();
-        int numberOfDoneRecords = (int) records.stream().filter(record -> record.getStatus() == RecordStatus.DONE).count();
-        int numberOfActiveRecords = (int) records.stream().filter(record -> record.getStatus() == RecordStatus.ACTIVE).count();
-        model.addAttribute("records", records);
-        model.addAttribute("numberOfDoneRecords", numberOfDoneRecords);
-        model.addAttribute("numberOfActiveRecords", numberOfActiveRecords);
+    public String getMainPage(Model model, @RequestParam(name = "filter", required = false) String filterMode ) {
+        RecordsContainerDto container = recordService.findAllRecords(filterMode);
+        model.addAttribute("records", container.getRecords());
+        model.addAttribute("numberOfDoneRecords", container.getNumberOfDoneRecords());
+        model.addAttribute("numberOfActiveRecords", container.getNumberOfActiveRecords());
         return "main-page";
     }
 
@@ -44,14 +40,16 @@ public class CommonController {
     }
 
     @RequestMapping(value = "/make-record-done", method = RequestMethod.POST)
-    public String makeRecordDone(@RequestParam int id) {
+    public String makeRecordDone(@RequestParam int id,
+                                 @RequestParam(name = "filter", required = false) String filterMode) {
         recordService.updateRecordStatus(id, RecordStatus.DONE);
-        return "redirect:/home";
+        return "redirect:/home" + (filterMode != null && !filterMode.isBlank() ? "?filter=" + filterMode : "");
     }
 
     @RequestMapping(value = "/delete-record", method = RequestMethod.POST)
-    public String deleteRecord(@RequestParam int id) {
+    public String deleteRecord(@RequestParam int id,
+                               @RequestParam(name = "filter", required = false) String filterMode) {
         recordService.deleteRecord(id);
-        return "redirect:/home";
+        return "redirect:/home" + (filterMode != null && !filterMode.isBlank() ? "?filter=" + filterMode : "");
     }
 }
